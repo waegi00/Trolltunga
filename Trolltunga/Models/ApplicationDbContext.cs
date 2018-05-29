@@ -9,11 +9,14 @@ namespace Trolltunga.Models
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Project> Projects { get; set; }
+
+        public DbSet<Task> Tasks { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            //TODO: Create Custom-Initializer
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
+            Database.SetInitializer(new DbInitializer());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
