@@ -2,4 +2,4 @@
 # Diese .gitignore-Datei wurde von Microsoft(R) Visual Studio automatisch erstellt.
 ################################################################################
 
-*.lock
+/.vs/Trolltunga/v15/Server/sqlite3
