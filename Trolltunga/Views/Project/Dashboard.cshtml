@@ -3,6 +3,21 @@
 @{
     ViewBag.Title = "Dashboard";
 }
-
-<h2>Dashboard</h2>
-
+<div class="row">
+    <div class="col-lg-2 full-height" style="background-color: black">
+        @* Channels *@
+        asdf
+    </div>
+    <div class="col-lg-10">
+        @* Tasks *@
+        asd
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $(window).resize(function() {
+            $(".full-height").height($(window).height() - $(".full-height").offset().top);
+        });
+        $(window).resize();
+    });
+</script>

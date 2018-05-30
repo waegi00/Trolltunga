@@ -1,6 +1,5 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +20,22 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.fill-height-or-more {
+    display: flex;
+    flex-direction: column;
+}
+
+.fill-height-or-more > div {
+    -o-flex-grow: 1;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    -o-flex-shrink: 1;
+    -webkit-flex-shrink: 1;
+    flex-shrink: 1;
+    -ms-flex-basis: auto;
+    -o-flex-basis: auto;
+    -webkit-flex-basis: auto;
+    flex-basis: auto;
 }
