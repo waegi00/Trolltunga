@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Trolltunga.Models;
+using Trolltunga.ViewModels.Project;
 
 namespace Trolltunga.Controllers
 {
@@ -11,12 +12,12 @@ namespace Trolltunga.Controllers
     public class ProjectController : Controller
     {
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
-        
+
         public ActionResult Index()
         {
             return View(_db.Projects.ToList());
         }
-        
+
         public ActionResult Details(Guid? id)
         {
             if (id == null)
@@ -30,24 +31,37 @@ namespace Trolltunga.Controllers
             }
             return View(project);
         }
-        
+
         public ActionResult Create()
         {
-            return View();
+            return View(
+                new ProjectViewModel
+                {
+                    AllTasks = _db.Tasks.ToList(),
+                    AllUsers = _db.Users.ToList()
+                }
+            );
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description")] Project project)
+        public ActionResult Create([Bind(Exclude = "Id")] ProjectViewModel projectViewModel)
         {
-            if (!ModelState.IsValid) return View(project);
-            project.Id = Guid.NewGuid();
+            if (!ModelState.IsValid) return View(projectViewModel);
+            var project = new Project
+            {
+                Id = Guid.NewGuid(),
+                Name = projectViewModel.Name,
+                Description = projectViewModel.Description,
+                Participants = projectViewModel.Participants,
+                Tasks = projectViewModel.Tasks
+            };
             _db.Projects.Add(project);
             _db.SaveChanges();
             return RedirectToAction("Index");
 
         }
-        
+
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
@@ -59,19 +73,37 @@ namespace Trolltunga.Controllers
             {
                 return HttpNotFound();
             }
-            return View(project);
+            var projectViewModel = new ProjectViewModel
+            {
+                Id = project.Id,
+                Name = project.Name,
+                Description = project.Description,
+                Participants = project.Participants,
+                Tasks = project.Tasks,
+                AllTasks = _db.Tasks.ToList(),
+                AllUsers = _db.Users.ToList()
+            };
+            return View(projectViewModel);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description")] Project project)
+        public ActionResult Edit(ProjectViewModel projectViewModel)
         {
-            if (!ModelState.IsValid) return View(project);
+            if (!ModelState.IsValid) return View(projectViewModel);
+            var project = new Project
+            {
+                Id = projectViewModel.Id,
+                Name = projectViewModel.Name,
+                Description = projectViewModel.Description,
+                Participants = projectViewModel.Participants,
+                Tasks = projectViewModel.Tasks
+            };
             _db.Entry(project).State = EntityState.Modified;
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
-        
+
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
@@ -85,7 +117,7 @@ namespace Trolltunga.Controllers
             }
             return View(project);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Guid id)
