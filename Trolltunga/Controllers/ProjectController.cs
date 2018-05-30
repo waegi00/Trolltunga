@@ -18,6 +18,20 @@ namespace Trolltunga.Controllers
             return View(_db.Projects.ToList());
         }
 
+        public ActionResult Dashboard(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var project = _db.Projects.Find(id);
+            if (project == null)
+            {
+                return HttpNotFound();
+            }
+            return View(project);
+        }
+
         public ActionResult Details(Guid? id)
         {
             if (id == null)
