@@ -9,8 +9,8 @@ namespace Trolltunga.Models
 {
     public class Task
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [Required]
@@ -20,8 +20,10 @@ namespace Trolltunga.Models
 
         public Status Status { get; set; }
 
+        public Guid ProjectId { get; set; }
+
         public virtual Project Project { get; set; }
 
-        public virtual List<ApplicationUser> Assignees { get; set; } = new List<ApplicationUser>();
+        public virtual ICollection<ApplicationUser> Assignees { get; set; } = new List<ApplicationUser>();
     }
 }

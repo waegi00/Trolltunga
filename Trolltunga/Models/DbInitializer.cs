@@ -18,7 +18,7 @@ namespace Trolltunga.Models
 
             var janobob = new ApplicationUser
             {
-                UserName = "werrnenj",
+                UserName = "werrenj",
                 Email = "jan@werren.com"
             };
 

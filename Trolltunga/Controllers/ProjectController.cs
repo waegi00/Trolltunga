@@ -35,7 +35,7 @@ namespace Trolltunga.Controllers
         public ActionResult Create()
         {
             return View(
-                new ProjectViewModel
+                new ProjectFormViewModel
                 {
                     AllTasks = _db.Tasks.ToList(),
                     AllUsers = _db.Users.ToList()
@@ -45,16 +45,22 @@ namespace Trolltunga.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Exclude = "Id")] ProjectViewModel projectViewModel)
+        public ActionResult Create([Bind(Exclude = "Id")] ProjectFormViewModel model)
         {
-            if (!ModelState.IsValid) return View(projectViewModel);
+            if (!ModelState.IsValid)
+            {
+                return View(new ProjectFormViewModel
+                {
+                    AllTasks = _db.Tasks.ToList(),
+                    AllUsers = _db.Users.ToList()
+                });
+            }
             var project = new Project
             {
                 Id = Guid.NewGuid(),
-                Name = projectViewModel.Name,
-                Description = projectViewModel.Description,
-                Participants = projectViewModel.Participants,
-                Tasks = projectViewModel.Tasks
+                Name = model.Name,
+                Description = model.Description,
+                Participants = _db.Users.Where(x => model.Participants.Contains(x.Id)).ToList(),
             };
             _db.Projects.Add(project);
             _db.SaveChanges();
@@ -73,13 +79,12 @@ namespace Trolltunga.Controllers
             {
                 return HttpNotFound();
             }
-            var projectViewModel = new ProjectViewModel
+            var projectViewModel = new ProjectFormViewModel
             {
                 Id = project.Id,
                 Name = project.Name,
                 Description = project.Description,
-                Participants = project.Participants,
-                Tasks = project.Tasks,
+                Participants = project.Participants.Select(x => x.Id).ToList(),
                 AllTasks = _db.Tasks.ToList(),
                 AllUsers = _db.Users.ToList()
             };
@@ -88,17 +93,21 @@ namespace Trolltunga.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ProjectViewModel projectViewModel)
+        public ActionResult Edit(ProjectFormViewModel model)
         {
-            if (!ModelState.IsValid) return View(projectViewModel);
-            var project = new Project
+            if (!ModelState.IsValid)
             {
-                Id = projectViewModel.Id,
-                Name = projectViewModel.Name,
-                Description = projectViewModel.Description,
-                Participants = projectViewModel.Participants,
-                Tasks = projectViewModel.Tasks
-            };
+                return View(new ProjectFormViewModel
+                {
+                    AllTasks = _db.Tasks.ToList(),
+                    AllUsers = _db.Users.ToList()
+                });
+            }
+            var project = _db.Projects.FirstOrDefault(x => x.Id == model.Id);
+            project.Name = model.Name;
+            project.Description = model.Description;
+            project.Participants.Clear();
+            project.Participants = _db.Users.Where(x => model.Participants.Contains(x.Id)).ToList();
             _db.Entry(project).State = EntityState.Modified;
             _db.SaveChanges();
             return RedirectToAction("Index");
