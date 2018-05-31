@@ -9,9 +9,16 @@ namespace Trolltunga.Models
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Project> Projects { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
 
-        public DbSet<Task> Tasks { get; set; }
+        public virtual DbSet<Task> Tasks { get; set; }
+
+        public virtual DbSet<Channel> Channels { get; set; }
+
+        public virtual DbSet<Message> Messages { get; set; }
+
+        public virtual DbSet<DirectMessage> DirectMessages { get; set; }
+
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

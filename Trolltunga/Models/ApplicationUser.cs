@@ -15,6 +15,10 @@ namespace Trolltunga.Models
 
         public virtual List<Task> Tasks { get; set; } = new List<Task>();
 
+        public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
+
+        public virtual ICollection<DirectMessage> DirectMessages { get; set; } = new List<DirectMessage>();
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
