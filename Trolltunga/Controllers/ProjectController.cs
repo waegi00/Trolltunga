@@ -71,10 +71,18 @@ namespace Trolltunga.Controllers
             }
             var project = new Project
             {
+                Id = Guid.NewGuid(),
                 Name = model.Name,
                 Description = model.Description,
                 Participants = _db.Users.Where(x => model.Participants.Contains(x.Id)).ToList(),
             };
+
+            project.Channels.Add(new Channel
+            {
+                Name = "#main",
+                Project = project
+            });
+
             _db.Projects.Add(project);
             _db.SaveChanges();
             return RedirectToAction("Index");
@@ -120,6 +128,7 @@ namespace Trolltunga.Controllers
             project.Name = model.Name;
             project.Description = model.Description;
             project.Participants.Clear();
+            _db.SaveChanges();
             project.Participants = _db.Users.Where(x => model.Participants.Contains(x.Id)).ToList();
             _db.Entry(project).State = EntityState.Modified;
             _db.SaveChanges();
