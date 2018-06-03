@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Trolltunga.Models
 {
-    public class Project
+    public class Channel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,12 +16,11 @@ namespace Trolltunga.Models
         [Required]
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        [Required]
+        public int ProjectId { get; set; }
 
-        public virtual ICollection<ApplicationUser> Participants { get; set; } = new List<ApplicationUser>();
+        public virtual Project Project { get; set; }
 
-        public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
-
-        public virtual ICollection<Channel> Channels { get; set; } = new List<Channel>();
+        public virtual ICollection<Message> Messages { get; set; }
     }
 }

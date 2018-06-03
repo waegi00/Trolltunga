@@ -9,7 +9,7 @@ namespace Trolltunga.Models
     {
         Todo = 0,
         InProgress = 1,
-        ToVerify = 2,
+        ToReview = 2,
         Done = 3
     }
 }
