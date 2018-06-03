@@ -9,6 +9,16 @@ namespace Trolltunga.Models
 {
     public class Project
     {
+        public Project()
+        {
+            Id = Guid.NewGuid();
+            Channels.Add(new Channel
+            {
+                Project = this,
+                Name = "#main"
+            });
+        }
+        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
@@ -18,10 +28,10 @@ namespace Trolltunga.Models
 
         public string Description { get; set; }
 
-        public ICollection<ApplicationUser> Participants { get; set; } = new List<ApplicationUser>();
+        public virtual ICollection<ApplicationUser> Participants { get; set; } = new List<ApplicationUser>();
 
-        public ICollection<Task> Tasks { get; set; } = new List<Task>();
+        public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
 
-        public ICollection<Channel> Channels { get; set; } = new List<Channel>();
+        public virtual ICollection<Channel> Channels { get; set; } = new List<Channel>();
     }
 }
