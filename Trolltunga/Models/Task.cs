@@ -9,11 +9,6 @@ namespace Trolltunga.Models
 {
     public class Task
     {
-        public Task()
-        {
-            Id = Guid.NewGuid();
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }

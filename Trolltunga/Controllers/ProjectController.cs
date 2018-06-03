@@ -71,6 +71,7 @@ namespace Trolltunga.Controllers
             }
             var project = new Project
             {
+                Id = Guid.NewGuid(),
                 Name = model.Name,
                 Description = model.Description,
                 Participants = _db.Users.Where(x => model.Participants.Contains(x.Id)).ToList(),

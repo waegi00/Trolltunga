@@ -9,16 +9,6 @@ namespace Trolltunga.Models
 {
     public class Project
     {
-        public Project()
-        {
-            Id = Guid.NewGuid();
-            Channels.Add(new Channel
-            {
-                Project = this,
-                Name = "#main"
-            });
-        }
-        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
