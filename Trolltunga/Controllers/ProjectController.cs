@@ -82,7 +82,7 @@ namespace Trolltunga.Controllers
             {
                 Id = Guid.NewGuid(),
                 Project = project,
-                Name = "#main"
+                Name = "main"
             });
 
             _db.Projects.Add(project);

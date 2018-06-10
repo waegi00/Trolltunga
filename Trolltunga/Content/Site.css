@@ -46,9 +46,14 @@ i.icon {
     margin-right: 5px;
 }
 
+i.icon-left {
+    float: left;
+}
+
 .channel {
     height: 50px;
     line-height: 50px;
+    margin-left: 0 !important;
 }
 
 div.channel {
