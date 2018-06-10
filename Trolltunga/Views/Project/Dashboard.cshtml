@@ -8,13 +8,13 @@
         @* TODO: Channels *@
 
         <div class="channel">
-            @Html.ActionLink("+ Add channel", "Create", "Channel", "", new { @class = "channel" })
+            @Html.ActionLink("Add channel", "Create", "Channel", null, new { @class = "channel" })<i class="icon fa fa-plus fa-2x"></i>
         </div>
 
         @foreach (var channel in Model.Channels)
         {
             <div class="channel">
-                @Html.Label(channel.Name, new { @class = "channel" })
+                @Html.Label(channel.Name, new { @class = "channel" })<i class="icon fa fa-trash fa-2x"></i><i class="icon fa fa-edit fa-2x"></i>
             </div>
         }
     </div>
@@ -22,6 +22,7 @@
         @* TODO: Tasks *@
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
         $(window).resize(function () {

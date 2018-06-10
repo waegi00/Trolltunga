@@ -27,17 +27,23 @@ textarea {
     flex-direction: column;
 }
 
-.fill-height-or-more > div {
-    -o-flex-grow: 1;
-    -webkit-flex-grow: 1;
-    flex-grow: 1;
-    -o-flex-shrink: 1;
-    -webkit-flex-shrink: 1;
-    flex-shrink: 1;
-    -ms-flex-basis: auto;
-    -o-flex-basis: auto;
-    -webkit-flex-basis: auto;
-    flex-basis: auto;
+    .fill-height-or-more > div {
+        -o-flex-grow: 1;
+        -webkit-flex-grow: 1;
+        flex-grow: 1;
+        -o-flex-shrink: 1;
+        -webkit-flex-shrink: 1;
+        flex-shrink: 1;
+        -ms-flex-basis: auto;
+        -o-flex-basis: auto;
+        -webkit-flex-basis: auto;
+        flex-basis: auto;
+    }
+
+i.icon {
+    float: right;
+    line-height: 50px;
+    margin-right: 5px;
 }
 
 .channel {
@@ -49,12 +55,18 @@ div.channel {
     margin: 5px;
 }
 
-div.channel:hover {
-    background: #111;
-}
+    div.channel:hover {
+        background: #111;
+    }
 
 label.channel, a.channel {
     color: #CCC;
     font-size: 20px;
     margin-left: 10px;
+    text-decoration: none;
 }
+
+    label.channel:hover, a.channel:hover {
+        text-decoration: none;
+        color: #DDD;
+    }
