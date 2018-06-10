@@ -39,3 +39,22 @@ textarea {
     -webkit-flex-basis: auto;
     flex-basis: auto;
 }
+
+.channel {
+    height: 50px;
+    line-height: 50px;
+}
+
+div.channel {
+    margin: 5px;
+}
+
+div.channel:hover {
+    background: #111;
+}
+
+label.channel, a.channel {
+    color: #CCC;
+    font-size: 20px;
+    margin-left: 10px;
+}

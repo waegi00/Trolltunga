@@ -190,6 +190,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChannelController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -262,6 +263,12 @@
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Project\_Form.cshtml" />
     <Content Include="Views\Project\Dashboard.cshtml" />
+    <Content Include="Views\Channel\Create.cshtml" />
+    <Content Include="Views\Channel\Delete.cshtml" />
+    <Content Include="Views\Channel\Details.cshtml" />
+    <Content Include="Views\Channel\Edit.cshtml" />
+    <Content Include="Views\Channel\Index.cshtml" />
+    <Content Include="Views\Channel\_Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

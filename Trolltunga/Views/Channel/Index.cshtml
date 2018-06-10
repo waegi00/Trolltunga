@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Trolltunga.Models.Project>
+﻿@model IEnumerable<Trolltunga.Models.Channel>
 
 @{
     ViewBag.Title = "Index";
@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Project.Name)
         </th>
         <th></th>
     </tr>
@@ -24,10 +24,10 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item.Name, "Dashboard", new { id = item.Id })
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Project.Name)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

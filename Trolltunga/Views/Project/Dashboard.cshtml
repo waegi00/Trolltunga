@@ -6,26 +6,25 @@
 <div class="row">
     <div class="col-lg-2 full-height" style="background-color: black">
         @* TODO: Channels *@
+
+        <div class="channel">
+            @Html.ActionLink("+ Add channel", "Create", "Channel", "", new { @class = "channel" })
+        </div>
+
         @foreach (var channel in Model.Channels)
         {
             <div class="channel">
-                @channel.Name
+                @Html.Label(channel.Name, new { @class = "channel" })
             </div>
         }
     </div>
     <div class="col-lg-10">
         @* TODO: Tasks *@
-        @foreach (var task in Model.Tasks)
-        {
-            <div class="task">
-                @task.Name
-            </div>
-        }
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-        $(window).resize(function() {
+    $(document).ready(function () {
+        $(window).resize(function () {
             $(".full-height").height($(window).height() - $(".full-height").offset().top);
         });
         $(window).resize();

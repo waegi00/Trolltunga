@@ -69,12 +69,13 @@ namespace Trolltunga.Controllers
                     AllUsers = _db.Users.ToList()
                 });
             }
+
             var project = new Project
             {
                 Id = Guid.NewGuid(),
                 Name = model.Name,
                 Description = model.Description,
-                Participants = _db.Users.Where(x => model.Participants.Contains(x.Id)).ToList(),
+                Participants = _db.Users.Where(x => model.Participants.Contains(x.Id)).ToList()
             };
 
             project.Channels.Add(new Channel
