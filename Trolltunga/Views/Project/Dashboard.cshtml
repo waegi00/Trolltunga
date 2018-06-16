@@ -6,7 +6,6 @@
 
 <div class="row">
     <div class="col-lg-2 full-height" style="background-color: black">
-
         @foreach (var channel in Model.Channels)
         {
             <div class="channel">
@@ -21,7 +20,18 @@
         </div>
     </div>
     <div class="col-lg-10">
-        @* TODO: Tasks *@
+        @foreach (var task in Model.Tasks)
+        {
+            <div class="task">
+                <i class="icon icon-left fa fa-hashtag fa-2x"></i>@Html.Label(task.Name, new { @class = "task" })
+                <i class="icon fa fa-trash fa-2x" onclick="location.href='@Url.Action("Delete", "Task", new { id =  task.Id })'"></i>
+                <i class="icon fa fa-edit fa-2x" onclick="location.href='@Url.Action("Edit", "Task", new { id =  task.Id })'"></i>
+            </div>
+        }
+
+        <div class="task">
+            <label class="task">Add task</label><i class="icon fa fa-plus fa-2x" onclick="location.href='@Url.Action("Create", "Task", new { projectId = Model.Id })'"></i>
+        </div>
     </div>
 </div>
 

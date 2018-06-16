@@ -75,3 +75,30 @@ label.channel, a.channel {
         text-decoration: none;
         color: #DDD;
     }
+
+
+.task {
+    height: 50px;
+    line-height: 50px;
+    margin-left: 0 !important;
+}
+
+div.task {
+    margin: 5px;
+}
+
+    div.task:hover {
+        background: #111;
+    }
+
+label.task, a.task {
+    color: #CCC;
+    font-size: 20px;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+    label.task:hover, a.task:hover {
+        text-decoration: none;
+        color: #DDD;
+    }
