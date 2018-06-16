@@ -64,6 +64,7 @@ namespace Trolltunga.Controllers
                 Id = task.Id,
                 Name = task.Name,
                 Description = task.Description,
+                Participants = task.Assignees.Select(x => x.Id).ToList(),
                 AllUsers = _db.Projects.Find(task.Project.Id)?.Participants.ToList(),
                 ProjectId = task.ProjectId
             });
@@ -87,6 +88,39 @@ namespace Trolltunga.Controllers
             return RedirectToAction("Index", new { projectId = task.ProjectId });
         }
 
+        public ActionResult ChangeStatus(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var task = _db.Tasks.Find(id);
+            if (task == null)
+            {
+                return HttpNotFound();
+            }
+            return View(new TaskStatusViewModel
+            {
+                Id = task.Id,
+                OldStatus = task.Status.ToString(),
+                NewStatus = task.Status
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeStatus(TaskStatusViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+            var task = _db.Tasks.FirstOrDefault(x => x.Id == model.Id);
+            if (task == null) return View("Error");
+            task.Id = model.Id;
+            task.Status = model.NewStatus;
+            _db.Entry(task).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Index", new { projectId = task.ProjectId });
+        }
+
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
@@ -103,6 +137,7 @@ namespace Trolltunga.Controllers
                 Id = task.Id,
                 Name = task.Name,
                 Description = task.Description,
+                Participants = task.Assignees.Select(x => x.Id).ToList(),
                 AllUsers = _db.Projects.Find(task.Project.Id)?.Participants.ToList(),
                 ProjectId = task.ProjectId
             });

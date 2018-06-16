@@ -1,4 +1,5 @@
-﻿@model Trolltunga.Models.Project
+﻿@using Trolltunga.Models
+@model Trolltunga.Models.Project
 
 @{
     ViewBag.Title = "Dashboard";
@@ -20,17 +21,41 @@
         </div>
     </div>
     <div class="col-lg-10">
-        @foreach (var task in Model.Tasks)
-        {
-            <div class="task">
-                <i class="icon icon-left fa fa-hashtag fa-2x"></i>@Html.Label(task.Name, new { @class = "task" })
-                <i class="icon fa fa-trash fa-2x" onclick="location.href='@Url.Action("Delete", "Task", new { id =  task.Id })'"></i>
-                <i class="icon fa fa-edit fa-2x" onclick="location.href='@Url.Action("Edit", "Task", new { id =  task.Id })'"></i>
-            </div>
-        }
+        @*TODO: Task Dashboard*@
+
+        <table class="table">
+            <tr>
+                <th style="width: 25%">@Status.Todo.ToString()</th>
+                <th style="width: 25%">@Status.InProgress.ToString()</th>
+                <th style="width: 25%">@Status.ToReview.ToString()</th>
+                <th style="width: 25%">@Status.Done.ToString()</th>
+            </tr>
+
+            @foreach (var task in Model.Tasks)
+            {
+                <tr>
+                    @for (var i = 0; i < (int) task.Status; i++)
+                    {
+                        <td></td>
+                    }
+                    <td>
+                        <div class="task">
+                            <i class="icon icon-left fa fa-exchange fa-2x" onclick="location.href = '@Url.Action("ChangeStatus", "Task", new {id = task.Id})'"></i>@Html.Label(task.Name, new { @class = "task" })
+                            <i class="icon fa fa-trash fa-2x" onclick="location.href = '@Url.Action("Delete", "Task", new {id = task.Id})'"></i>
+                            <i class="icon fa fa-edit fa-2x" onclick="location.href = '@Url.Action("Edit", "Task", new {id = task.Id})'"></i>
+                        </div>
+                    </td>
+                    @for (var i = (int) task.Status; i < 4; i++)
+                    {
+                        <td></td>
+                    }
+                </tr>
+            }
+
+        </table>
 
         <div class="task">
-            <label class="task">Add task</label><i class="icon fa fa-plus fa-2x" onclick="location.href='@Url.Action("Create", "Task", new { projectId = Model.Id })'"></i>
+            <label class="task">Add task</label><i class="icon fa fa-plus fa-2x" onclick="location.href = '@Url.Action("Create", "Task", new {projectId = Model.Id})'"></i>
         </div>
     </div>
 </div>

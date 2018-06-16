@@ -213,6 +213,7 @@
     <Compile Include="ViewModels\Channel\ChannelFormViewModel.cs" />
     <Compile Include="ViewModels\Project\ProjectFormViewModel.cs" />
     <Compile Include="ViewModels\Task\TaskFormViewModel.cs" />
+    <Compile Include="ViewModels\Task\TaskStatusViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-chosen.css" />
@@ -283,6 +284,7 @@
     <Content Include="Views\Task\Delete.cshtml" />
     <Content Include="Views\Task\Edit.cshtml" />
     <Content Include="Views\Task\_Form.cshtml" />
+    <Content Include="Views\Task\ChangeStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

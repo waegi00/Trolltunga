@@ -19,7 +19,7 @@ namespace Trolltunga.ViewModels.Task
         public string Description { get; set; }
 
         public Guid ProjectId { get; set; }
-
+        
         public ICollection<string> Participants { get; set; } = new List<string>();
 
         public ICollection<ApplicationUser> AllUsers { get; set; } = new List<ApplicationUser>();
