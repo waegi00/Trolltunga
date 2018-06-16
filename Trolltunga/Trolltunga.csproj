@@ -52,6 +52,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -208,6 +209,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Account\AccountLoginViewModel.cs" />
     <Compile Include="ViewModels\Account\AccountRegisterViewModel.cs" />
+    <Compile Include="ViewModels\Channel\ChannelFormViewModel.cs" />
     <Compile Include="ViewModels\Project\ProjectFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -273,9 +275,7 @@
     <Content Include="Views\Project\Dashboard.cshtml" />
     <Content Include="Views\Channel\Create.cshtml" />
     <Content Include="Views\Channel\Delete.cshtml" />
-    <Content Include="Views\Channel\Details.cshtml" />
     <Content Include="Views\Channel\Edit.cshtml" />
-    <Content Include="Views\Channel\Index.cshtml" />
     <Content Include="Views\Channel\_Form.cshtml" />
   </ItemGroup>
   <ItemGroup>

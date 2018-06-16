@@ -56,6 +56,11 @@ i.icon-left {
     margin-left: 0 !important;
 }
 
+.channel-bottom {
+    position: absolute;
+    bottom: 0;
+}
+
 div.channel {
     margin: 5px;
 }

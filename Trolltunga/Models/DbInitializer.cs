@@ -34,7 +34,7 @@ namespace Trolltunga.Models
             #endregion
 
             #region Projects
-
+            
             var trolltunga = new Project
             {
                 Name = "Trolltunga",
@@ -43,6 +43,21 @@ namespace Trolltunga.Models
             };
 
             context.Projects.Add(trolltunga);
+            context.SaveChanges();
+
+            #endregion
+
+            #region Channels
+
+            var main = new Channel
+            {
+                Id = Guid.NewGuid(),
+                Name = "main",
+                ProjectId = trolltunga.Id,
+                Project = trolltunga
+            };
+
+            context.Channels.Add(main);
             context.SaveChanges();
 
             #endregion

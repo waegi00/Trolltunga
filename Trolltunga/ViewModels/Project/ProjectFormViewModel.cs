@@ -21,7 +21,5 @@ namespace Trolltunga.ViewModels.Project
         public ICollection<string> Participants { get; set; } = new List<string>();
 
         public ICollection<ApplicationUser> AllUsers { get; set; } = new List<ApplicationUser>();
-
-        public ICollection<Task> AllTasks { get; set; } = new List<Task>();
     }
 }

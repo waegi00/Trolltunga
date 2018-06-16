@@ -88,7 +88,7 @@ namespace Trolltunga.Controllers
             {
                 await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Project");
             }
             AddErrors(result);
 
@@ -100,7 +100,7 @@ namespace Trolltunga.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
         
         protected override void Dispose(bool disposing)
@@ -149,7 +149,7 @@ namespace Trolltunga.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Project");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

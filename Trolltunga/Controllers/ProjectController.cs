@@ -51,7 +51,6 @@ namespace Trolltunga.Controllers
             return View(
                 new ProjectFormViewModel
                 {
-                    AllTasks = _db.Tasks.ToList(),
                     AllUsers = _db.Users.ToList()
                 }
             );
@@ -65,7 +64,6 @@ namespace Trolltunga.Controllers
             {
                 return View(new ProjectFormViewModel
                 {
-                    AllTasks = _db.Tasks.ToList(),
                     AllUsers = _db.Users.ToList()
                 });
             }
@@ -108,7 +106,6 @@ namespace Trolltunga.Controllers
                 Name = project.Name,
                 Description = project.Description,
                 Participants = project.Participants.Select(x => x.Id).ToList(),
-                AllTasks = _db.Tasks.ToList(),
                 AllUsers = _db.Users.ToList()
             };
             return View(projectViewModel);
@@ -122,11 +119,11 @@ namespace Trolltunga.Controllers
             {
                 return View(new ProjectFormViewModel
                 {
-                    AllTasks = _db.Tasks.ToList(),
                     AllUsers = _db.Users.ToList()
                 });
             }
             var project = _db.Projects.FirstOrDefault(x => x.Id == model.Id);
+            if (project == null) return View("Error");
             project.Name = model.Name;
             project.Description = model.Description;
             project.Participants.Clear();

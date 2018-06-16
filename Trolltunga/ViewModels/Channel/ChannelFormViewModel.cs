@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using Trolltunga.Models;
 
-namespace Trolltunga.Models
+
+namespace Trolltunga.ViewModels.Channel
 {
-    public class Channel
+    public class ChannelFormViewModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [Required]
@@ -18,9 +18,5 @@ namespace Trolltunga.Models
 
         [Required]
         public Guid ProjectId { get; set; }
-
-        public virtual Project Project { get; set; }
-
-        public virtual ICollection<Message> Messages { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Trolltunga.Models;
+using Trolltunga.ViewModels.Channel;
 
 namespace Trolltunga.Controllers
 {
@@ -14,40 +15,33 @@ namespace Trolltunga.Controllers
     {
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
         
-        public ActionResult Index()
+        public ActionResult Index(Guid projectId)
         {
-            return View(_db.Channels.ToList());
+            return RedirectToAction("Dashboard", "Project", new { id = projectId });
         }
         
-        public ActionResult Details(Guid? id)
+        public ActionResult Create(Guid projectId)
         {
-            if (id == null)
+            return View(new ChannelFormViewModel
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var channel = _db.Channels.Find(id);
-            if (channel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(channel);
-        }
-        
-        public ActionResult Create()
-        {
-            return View();
+                ProjectId = projectId
+            });
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Exclude = "Id")] Channel channel)
+        public ActionResult Create(ChannelFormViewModel model)
         {
-            if (!ModelState.IsValid) return View(channel);
-            channel.Id = Guid.NewGuid();
+            if (!ModelState.IsValid) return View(model);
+            var channel = new Channel
+            {
+                Id = new Guid(),
+                Name = model.Name,
+                ProjectId = model.ProjectId
+            };
             _db.Channels.Add(channel);
             _db.SaveChanges();
-            return RedirectToAction("Index");
-
+            return RedirectToAction("Index", new { projectId = channel.ProjectId });
         }
         
         public ActionResult Edit(Guid? id)
@@ -61,17 +55,27 @@ namespace Trolltunga.Controllers
             {
                 return HttpNotFound();
             }
-            return View(channel);
+            return View(new ChannelFormViewModel
+            {
+                Id = channel.Id,
+                Name = channel.Name,
+                ProjectId = channel.ProjectId
+            });
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Exclude = "Id")] Channel channel)
+        public ActionResult Edit(ChannelFormViewModel model)
         {
-            if (!ModelState.IsValid) return View(channel);
+            if (!ModelState.IsValid) return View(model);
+            var channel = _db.Channels.FirstOrDefault(x => x.Id == model.Id);
+            if (channel == null) return View("Error");
+            channel.Id = model.Id;
+            channel.Name = model.Name;
+            channel.ProjectId = model.ProjectId;
             _db.Entry(channel).State = EntityState.Modified;
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { projectId = channel.ProjectId });
         }
         
         public ActionResult Delete(Guid? id)
@@ -85,7 +89,12 @@ namespace Trolltunga.Controllers
             {
                 return HttpNotFound();
             }
-            return View(channel);
+            return View(new ChannelFormViewModel
+            {
+                Id = channel.Id,
+                Name = channel.Name,
+                ProjectId = channel.ProjectId
+            });
         }
         
         [HttpPost]
@@ -96,7 +105,7 @@ namespace Trolltunga.Controllers
             if (channel == null) return View("Error");
             _db.Channels.Remove(channel);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { projectId = channel.ProjectId });
         }
 
         protected override void Dispose(bool disposing)
