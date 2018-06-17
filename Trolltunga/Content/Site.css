@@ -8,6 +8,116 @@
     padding-right: 15px;
 }
 
+.navbar-default {
+    background-color: #000000;
+    border-color: #2b2b2b;
+}
+
+    .navbar-default .navbar-brand {
+        color: #ffffff;
+    }
+
+        .navbar-default .navbar-brand:hover,
+        .navbar-default .navbar-brand:focus {
+            color: #ffffff;
+        }
+
+    .navbar-default .navbar-text {
+        color: #ffffff;
+    }
+
+    .navbar-default .navbar-nav > li > a {
+        color: #ffffff;
+    }
+
+        .navbar-default .navbar-nav > li > a:hover,
+        .navbar-default .navbar-nav > li > a:focus {
+            color: #ffffff;
+        }
+
+    .navbar-default .navbar-nav > li > .dropdown-menu {
+        background-color: #000000;
+    }
+
+        .navbar-default .navbar-nav > li > .dropdown-menu > li > a {
+            color: #ffffff;
+        }
+
+            .navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
+            .navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
+                color: #ffffff;
+                background-color: #2b2b2b;
+            }
+
+        .navbar-default .navbar-nav > li > .dropdown-menu > li.divider {
+            background-color: #2b2b2b;
+        }
+
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+        color: #ffffff;
+        background-color: #2b2b2b;
+    }
+
+    .navbar-default .navbar-nav > .active > a,
+    .navbar-default .navbar-nav > .active > a:hover,
+    .navbar-default .navbar-nav > .active > a:focus {
+        color: #ffffff;
+        background-color: #2b2b2b;
+    }
+
+    .navbar-default .navbar-nav > .open > a,
+    .navbar-default .navbar-nav > .open > a:hover,
+    .navbar-default .navbar-nav > .open > a:focus {
+        color: #ffffff;
+        background-color: #2b2b2b;
+    }
+
+    .navbar-default .navbar-toggle {
+        border-color: #2b2b2b;
+    }
+
+        .navbar-default .navbar-toggle:hover,
+        .navbar-default .navbar-toggle:focus {
+            background-color: #2b2b2b;
+        }
+
+        .navbar-default .navbar-toggle .icon-bar {
+            background-color: #ffffff;
+        }
+
+    .navbar-default .navbar-collapse,
+    .navbar-default .navbar-form {
+        border-color: #ffffff;
+    }
+
+    .navbar-default .navbar-link {
+        color: #ffffff;
+    }
+
+        .navbar-default .navbar-link:hover {
+            color: #ffffff;
+        }
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #ffffff;
+    }
+
+        .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+        .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+            color: #ffffff;
+        }
+
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+        color: #ffffff;
+        background-color: #2b2b2b;
+    }
+}
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -22,24 +132,6 @@ textarea {
     max-width: 280px;
 }
 
-.fill-height-or-more {
-    display: flex;
-    flex-direction: column;
-}
-
-    .fill-height-or-more > div {
-        -o-flex-grow: 1;
-        -webkit-flex-grow: 1;
-        flex-grow: 1;
-        -o-flex-shrink: 1;
-        -webkit-flex-shrink: 1;
-        flex-shrink: 1;
-        -ms-flex-basis: auto;
-        -o-flex-basis: auto;
-        -webkit-flex-basis: auto;
-        flex-basis: auto;
-    }
-
 i.icon {
     float: right;
     line-height: 50px;
@@ -49,33 +141,6 @@ i.icon {
 i.icon-left {
     float: left;
 }
-
-.channel {
-    height: 50px;
-    line-height: 50px;
-    margin-left: 0 !important;
-}
-
-div.channel {
-    margin: 5px;
-}
-
-    div.channel:hover {
-        background: #111;
-    }
-
-label.channel, a.channel {
-    color: #CCC;
-    font-size: 20px;
-    margin-left: 10px;
-    text-decoration: none;
-}
-
-    label.channel:hover, a.channel:hover {
-        text-decoration: none;
-        color: #DDD;
-    }
-
 
 .task {
     height: 50px;
@@ -101,4 +166,30 @@ label.task, a.task {
     label.task:hover, a.task:hover {
         text-decoration: none;
         color: #DDD;
+    }
+
+.no-padding-row {
+    padding: 0 !important;
+}
+
+.menu {
+    background-color: #34495E;
+}
+
+    .menu > h3 {
+        color: #ECECEC;
+    }
+
+    .menu > p {
+        color: #ECECEC;
+        font-size: 17px;
+        margin: 0;
+    }
+
+    .menu a {
+        color: inherit;
+    }
+
+    .menu > .menu {
+        margin-top: 50px;
     }

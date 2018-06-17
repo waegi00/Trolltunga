@@ -6,18 +6,21 @@
 }
 
 <div class="row">
-    <div class="col-lg-2 full-height" style="background-color: black">
-        @foreach (var channel in Model.Channels)
-        {
-            <div class="channel">
-                <i class="icon icon-left fa fa-hashtag fa-2x"></i>@Html.Label(channel.Name, new { @class = "channel" })
-                <i class="icon fa fa-trash fa-2x" onclick="location.href='@Url.Action("Delete", "Channel", new { id =  channel.Id })'"></i>
-                <i class="icon fa fa-edit fa-2x" onclick="location.href='@Url.Action("Edit", "Channel", new { id =  channel.Id })'"></i>
-            </div>
-        }
-
-        <div class="channel">
-            <label class="channel">Add channel</label><i class="icon fa fa-plus fa-2x" onclick="location.href='@Url.Action("Create", "Channel", new { projectId = Model.Id })'"></i>
+    <div class="col-lg-2 full-height menu">
+        <h3>@Model.Name</h3>
+        <div class="menu">
+            <p>Channels<a href="@Url.Action("Create","Channel", new {projectId = Model.Id})"><i class="fa fa-plus pull-right"></i></a></p>
+            @foreach (var channel in Model.Channels.Where(x => typeof(Channel) == x.GetType()).ToList())
+            {
+                <p><i class="fa fa-hashtag"></i> @channel.Name</p>
+            }
+        </div>
+        <div class="menu">
+            <p>DirektNachrichten<a href=""><i class="fa fa-plus pull-right"></i></a></p>
+            @*@foreach (var directChannel in Model.Channels.Where(x => typeof() == x.GetType()).ToList())
+            {
+                <p><i class="fa fa-dot-circle-o"></i> @directChannel.Name</p>
+            }*@
         </div>
     </div>
     <div class="col-lg-10">
@@ -34,7 +37,7 @@
             @foreach (var task in Model.Tasks)
             {
                 <tr>
-                    @for (var i = 0; i < (int) task.Status; i++)
+                    @for (var i = 0; i < (int)task.Status; i++)
                     {
                         <td></td>
                     }
@@ -45,7 +48,7 @@
                             <i class="icon fa fa-edit fa-2x" onclick="location.href = '@Url.Action("Edit", "Task", new {id = task.Id})'"></i>
                         </div>
                     </td>
-                    @for (var i = (int) task.Status; i < 4; i++)
+                    @for (var i = (int)task.Status; i < 4; i++)
                     {
                         <td></td>
                     }

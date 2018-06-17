@@ -25,8 +25,8 @@ namespace Trolltunga
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/site.css",
                       "~/Content/bootstrap.css",
+                      "~/Content/site.css",
                       "~/Content/bootstrap-chosen.css",
                       "~/Content/font-awesome.css"));
         }
