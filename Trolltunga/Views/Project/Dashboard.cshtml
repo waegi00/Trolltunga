@@ -1,4 +1,5 @@
-﻿@using Trolltunga.Models
+﻿@using Microsoft.AspNet.Identity
+@using Trolltunga.Models
 @model Trolltunga.Models.Project
 
 @{
@@ -10,17 +11,17 @@
         <h3>@Model.Name</h3>
         <div class="menu">
             <p>Channels<a href="@Url.Action("Create","Channel", new {projectId = Model.Id})"><i class="fa fa-plus pull-right"></i></a></p>
-            @foreach (var channel in Model.Channels.Where(x => typeof(Channel) == x.GetType()).ToList())
+            @foreach (var channel in Model.Channels)
             {
                 <p><i class="fa fa-hashtag"></i> @channel.Name</p>
             }
         </div>
         <div class="menu">
             <p>DirektNachrichten<a href=""><i class="fa fa-plus pull-right"></i></a></p>
-            @*@foreach (var directChannel in Model.Channels.Where(x => typeof() == x.GetType()).ToList())
+            @foreach (var directChannel in Model.DirectMessages.Where(x => x.ApplicationUsers.Select(y => y.Id).Contains(User.Identity.GetUserId())))
             {
                 <p><i class="fa fa-dot-circle-o"></i> @directChannel.Name</p>
-            }*@
+            }
         </div>
     </div>
     <div class="col-lg-10">

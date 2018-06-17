@@ -23,5 +23,7 @@ namespace Trolltunga.Models
         public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
 
         public virtual ICollection<Channel> Channels { get; set; } = new List<Channel>();
+
+        public virtual ICollection<DirectMessage> DirectMessages { get; set; } = new List<DirectMessage>();
     }
 }
