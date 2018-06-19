@@ -292,6 +292,7 @@
     <Content Include="Views\DirectMessage\Edit.cshtml" />
     <Content Include="Views\DirectMessage\Index.cshtml" />
     <Content Include="Views\Channel\Index.cshtml" />
+    <Content Include="Views\Shared\_DashboardMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
