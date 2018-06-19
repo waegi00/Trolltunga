@@ -3,7 +3,7 @@
 @model Trolltunga.Models.Project
 
 <div class="col-lg-2 full-height menu">
-    <h3>@Model.Name</h3>
+    <a href="@Url.Action("Dashboard", "Project", new {id = Model.Id})"><h3>@Model.Name</h3></a>
     <div class="menu">
         <p>Channels<a href="@Url.Action("Create","Channel", new {projectId = Model.Id})"><i class="fa fa-plus pull-right"></i></a></p>
         @foreach (var channel in Model.Channels)
