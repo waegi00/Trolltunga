@@ -14,6 +14,8 @@
             <a class="col-lg-12 no-padding-row " href="@Url.Action("Index","Channel",new {id = channel.Id})"><p class="@(channel.Id == (Guid)ViewData["channelId"] ? "selected" : "")"><i class="fa fa-hashtag" style="margin-left: 5px"></i> @channel.Name</p></a>
         }
     </div>
+    <div style="height: 100px;">
+    </div>
     <div class="menu">
         <p>Direct messages<i class="fa fa-plus pull-right"></i></p>
         @foreach (var directChannel in Model.DirectMessages.Where(x => x.ApplicationUsers.Select(y => y.Id).Contains(User.Identity.GetUserId())))
