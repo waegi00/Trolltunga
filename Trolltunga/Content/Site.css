@@ -125,12 +125,6 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
 
 i.icon {
     float: right;
@@ -196,6 +190,10 @@ label.task, a.task {
         margin: 0;
     }
 
+    .menu > a > .selected{
+        background-color: black;
+    }
+
     .menu a:hover {
         text-decoration: none;
         background-color: #446CB3 !important;
@@ -218,4 +216,17 @@ label.task, a.task {
 .media-left {
     float: left;
     margin-right: 20px;
+}
+
+#textInput {
+    width: 66%;
+    margin-left: 20px;
+    height: 64px;
+}
+
+#submitInput {
+    width: 30%;
+    float: right;
+    margin-right: 20px;
+    height: 64px;
 }

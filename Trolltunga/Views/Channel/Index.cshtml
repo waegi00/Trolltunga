@@ -5,7 +5,7 @@
 }
 
 <div class="row">
-    @Html.Partial("_DashboardMenu", Model.Project)
+    @Html.Partial("_DashboardMenu", Model.Project, new ViewDataDictionary { { "channelId", Model.Id } })
     <div class="full-height col-lg-10 no-padding-row">
         <div class="messages-container">
             @foreach (var message in Model.Messages)
@@ -39,13 +39,13 @@
         </div>
         <div class="media" id="input" style="margin-top: 0">
             <div class="media-left">
-                <a href="#">
-                    <img class="media-object" src="http://via.placeholder.com/64x64">
-                </a>
+                <img class="media-object" src="http://via.placeholder.com/64x64">
             </div>
             <div class="media-body">
-                <h4 class="media-heading">User Name</h4>
-                Message
+                <div class="row form-inline">
+                    <input id="textInput" type="text" class="form-control input-lg"/>
+                    <button id="submitInput" type="button" class="btn btn-primary btn-lg">Send</button>
+                </div>
             </div>
         </div>
     </div>
