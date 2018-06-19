@@ -196,6 +196,10 @@ label.task, a.task {
         margin: 0;
     }
 
+    .menu > a > .selected{
+        background-color: black;
+    }
+
     .menu a:hover {
         text-decoration: none;
         background-color: #446CB3 !important;

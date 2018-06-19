@@ -5,7 +5,7 @@
 }
 
 <div class="row">
-    @Html.Partial("_DashboardMenu", Model.Project)
+    @Html.Partial("_DashboardMenu", Model.Project, new ViewDataDictionary { { "channelId", Model.Id } })
     <div class="full-height col-lg-10 no-padding-row">
         <div class="messages-container">
             @foreach (var message in Model.Messages)
