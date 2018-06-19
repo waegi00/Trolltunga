@@ -18,7 +18,7 @@
         <p>Direct messages<i class="fa fa-plus pull-right"></i></p>
         @foreach (var directChannel in Model.DirectMessages.Where(x => x.ApplicationUsers.Select(y => y.Id).Contains(User.Identity.GetUserId())))
         {
-            <p><i class="fa fa-dot-circle-o"></i> @directChannel.Name</p>
+            <p><i class="fa fa-dot-circle-o" style="margin-left: 5px"></i> @directChannel.Name</p>
         }
     </div>
 </div>
