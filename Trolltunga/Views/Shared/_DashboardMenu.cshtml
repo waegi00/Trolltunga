@@ -1,6 +1,9 @@
 ﻿@using Microsoft.AspNet.Identity
 @using Trolltunga.Models
 @model Trolltunga.Models.Project
+@{
+    ViewData["channelId"] = Guid.Empty;
+}
 
 <div class="col-lg-2 full-height menu">
     <a href="@Url.Action("Dashboard", "Project", new {id = Model.Id})"><h3>@Model.Name</h3></a>
