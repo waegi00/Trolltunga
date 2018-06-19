@@ -15,25 +15,14 @@ namespace Trolltunga.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: DirectMessage
-        public ActionResult Index()
-        {
-            var directMessages = db.DirectMessages.Include(d => d.Project);
-            return View(directMessages.ToList());
-        }
-
-        // GET: DirectMessage/Details/5
-        public ActionResult Details(Guid? id)
+        public ActionResult Index(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DirectMessage directMessage = db.DirectMessages.Find(id);
-            if (directMessage == null)
-            {
-                return HttpNotFound();
-            }
-            return View(directMessage);
+            var directMessages = db.DirectMessages.Include(d => d.Project);
+            return View(directMessages.ToList());
         }
 
         // GET: DirectMessage/Create

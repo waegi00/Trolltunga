@@ -174,22 +174,48 @@ label.task, a.task {
 
 .menu {
     background-color: #34495E;
+    color: #ECECEC;
 }
 
     .menu > h3 {
-        color: #ECECEC;
+        color: inherit;
     }
 
     .menu > p {
-        color: #ECECEC;
+        color: inherit;
         font-size: 17px;
         margin: 0;
     }
 
     .menu a {
         color: inherit;
+        font-size: 17px;
+    }
+
+    .menu > a > p {
+        margin: 0;
+    }
+
+    .menu a:hover {
+        text-decoration: none;
+        background-color: #446CB3 !important;
     }
 
     .menu > .menu {
         margin-top: 50px;
     }
+
+.messages-container {
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.media {
+    background-color: #ECECEC;
+    padding: 20px;
+}
+
+.media-left {
+    float: left;
+    margin-right: 20px;
+}

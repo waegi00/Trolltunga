@@ -15,9 +15,18 @@ namespace Trolltunga.Controllers
     {
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
         
-        public ActionResult Index(Guid projectId)
+        public ActionResult Index(Guid? id)
         {
-            return RedirectToAction("Dashboard", "Project", new { id = projectId });
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var channel = _db.Channels.Find(id);
+            if (channel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(channel);
         }
         
         public ActionResult Create(Guid projectId)
@@ -30,18 +39,22 @@ namespace Trolltunga.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ChannelFormViewModel model)
+        public ActionResult Create(Guid? projectId, ChannelFormViewModel model)
         {
+            if (projectId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             if (!ModelState.IsValid) return View(model);
             var channel = new Channel
             {
                 Id = new Guid(),
                 Name = model.Name,
-                ProjectId = model.ProjectId
+                ProjectId = (Guid)projectId
             };
             _db.Channels.Add(channel);
             _db.SaveChanges();
-            return RedirectToAction("Index", new { projectId = channel.ProjectId });
+            return RedirectToAction("Index", new {  channel.Id });
         }
         
         public ActionResult Edit(Guid? id)
