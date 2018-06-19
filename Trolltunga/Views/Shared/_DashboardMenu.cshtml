@@ -12,7 +12,7 @@
         }
     </div>
     <div class="menu">
-        <p>DirektNachrichten<i class="fa fa-plus pull-right"></i></p>
+        <p>Direct messages<i class="fa fa-plus pull-right"></i></p>
         @foreach (var directChannel in Model.DirectMessages.Where(x => x.ApplicationUsers.Select(y => y.Id).Contains(User.Identity.GetUserId())))
         {
             <p><i class="fa fa-dot-circle-o"></i> @directChannel.Name</p>

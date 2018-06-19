@@ -12,86 +12,76 @@ namespace Trolltunga.Controllers
 {
     public class DirectMessageController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
-        // GET: DirectMessage
         public ActionResult Index(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var directMessages = db.DirectMessages.Include(d => d.Project);
+            var directMessages = _db.DirectMessages.Include(d => d.Project);
             return View(directMessages.ToList());
         }
 
-        // GET: DirectMessage/Create
         public ActionResult Create()
         {
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name");
+            ViewBag.ProjectId = new SelectList(_db.Projects, "Id", "Name");
             return View();
         }
 
-        // POST: DirectMessage/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,ProjectId")] DirectMessage directMessage)
+        public ActionResult Create([Bind(Exclude = "Id")] DirectMessage directMessage)
         {
             if (ModelState.IsValid)
             {
                 directMessage.Id = Guid.NewGuid();
-                db.DirectMessages.Add(directMessage);
-                db.SaveChanges();
+                _db.DirectMessages.Add(directMessage);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", directMessage.ProjectId);
+            ViewBag.ProjectId = new SelectList(_db.Projects, "Id", "Name", directMessage.ProjectId);
             return View(directMessage);
         }
 
-        // GET: DirectMessage/Edit/5
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DirectMessage directMessage = db.DirectMessages.Find(id);
+            var directMessage = _db.DirectMessages.Find(id);
             if (directMessage == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", directMessage.ProjectId);
+            ViewBag.ProjectId = new SelectList(_db.Projects, "Id", "Name", directMessage.ProjectId);
             return View(directMessage);
         }
 
-        // POST: DirectMessage/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,ProjectId")] DirectMessage directMessage)
+        public ActionResult Edit([Bind(Exclude = "Id")] DirectMessage directMessage)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(directMessage).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(directMessage).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", directMessage.ProjectId);
+            ViewBag.ProjectId = new SelectList(_db.Projects, "Id", "Name", directMessage.ProjectId);
             return View(directMessage);
         }
 
-        // GET: DirectMessage/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DirectMessage directMessage = db.DirectMessages.Find(id);
+            var directMessage = _db.DirectMessages.Find(id);
             if (directMessage == null)
             {
                 return HttpNotFound();
@@ -99,14 +89,14 @@ namespace Trolltunga.Controllers
             return View(directMessage);
         }
 
-        // POST: DirectMessage/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        public ActionResult Delete(Guid id)
         {
-            DirectMessage directMessage = db.DirectMessages.Find(id);
-            db.DirectMessages.Remove(directMessage);
-            db.SaveChanges();
+            var directMessage = _db.DirectMessages.Find(id);
+            if (directMessage == null) return View("Error");
+            _db.DirectMessages.Remove(directMessage);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -114,7 +104,7 @@ namespace Trolltunga.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

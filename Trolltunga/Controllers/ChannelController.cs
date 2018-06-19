@@ -54,7 +54,7 @@ namespace Trolltunga.Controllers
             };
             _db.Channels.Add(channel);
             _db.SaveChanges();
-            return RedirectToAction("Index", new {  channel.Id });
+            return RedirectToAction("Index", new { channel.Id });
         }
         
         public ActionResult Edit(Guid? id)
