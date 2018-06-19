@@ -8,7 +8,7 @@
     <div class="col-lg-2 full-height menu">
         <a href="@Url.Action("Dashboard","Project", new {id = Model.Project.Id})"><h3>@Model.Project.Name</h3></a>
         <div class="menu">
-            <p>Channels<a href="@Url.Action("Create","Channel", new {projectId = Model.Id})"><i class="fa fa-plus pull-right"></i></a></p>
+            <p>Channels<a href="@Url.Action("Create","Channel", new {projectId = Model.Project.Id})"><i class="fa fa-plus pull-right"></i></a></p>
             @foreach (var channel in Model.Project.Channels)
             {
                 <a class="col-lg-12 no-padding-row" href="@Url.Action("Index","Channel",new {id = channel.Id})"><p><i class="fa fa-hashtag"></i> @channel.Name</p></a>
