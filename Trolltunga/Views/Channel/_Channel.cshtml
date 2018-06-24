@@ -1,7 +1,7 @@
 ﻿@model ICollection<Trolltunga.Models.Message>
 @foreach (var message in Model)
 {
-    <div class="media" data-id="@message.Id">
+    <div class="media" data-id="@message.ApplicationUser.Id" >
         <div class="media-left">
             <a href="#">
                 <img class="media-object" src="http://via.placeholder.com/64x64">

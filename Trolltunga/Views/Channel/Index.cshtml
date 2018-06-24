@@ -30,6 +30,10 @@
             OnComplete = "onComplete"
         }))
         {
+            <div class="alert alert-info alert-dismissible" role="alert" style="position: absolute; width: 20%; top: 3%; left: 40%; display: none" id="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <p class="text-center">Es scheint als ob jemand etwas geschrieben hätte.</p>
+            </div>
             <div class="media" id="input" style="margin-top: 0">
                 <div class="media-left">
                     <img class="media-object" src="http://via.placeholder.com/64x64">
@@ -37,7 +41,7 @@
                 <div class="media-body">
                     <div class="row form-inline">
                         @Html.HiddenFor(x => x.ChannelId)
-                        @Html.TextBoxFor(x => x.Content, new {@class = "form-control input-lg"})
+                        @Html.TextBoxFor(x => x.Content, new { @class = "form-control input-lg" })
                         <button id="submitInput" type="submit" class="btn btn-primary btn-lg">Send</button>
                     </div>
                 </div>
@@ -47,6 +51,8 @@
 </div>
 <script>
     var lastmessageId = 0;
+    var userId = "@User.Identity.GetUserId()";
+
     $(document).ready(function () {
         $(window).resize(function () {
             $(".full-height").height($(window).height() - $(".full-height").offset().top);
@@ -65,10 +71,16 @@
 
     function checkForUpdates() {
         var countMessages = $("#messages-container .media").length - $("#bot").length;
-        $.get('@Url.Action("GetNewMessages","Channel")?length=' + countMessages + '&channelId=@Model.ChannelId', function (data) {
+        $.get('@Url.Action("GetNewMessages","Channel")?count=' + countMessages + '&channelId=@Model.ChannelId', function (data) {
+            console.log(data);
             if (data !== "") {
                 $("#messages-container").empty(data);
                 $("#messages-container").append(data);
+                if ($("#messages-container .media").last().data("id") === userId) {
+                    $("#messages-container").animate({ scrollTop: $('#messages-container').prop("scrollHeight") }, 0);
+                } else {
+                    $("#alert").show(300);
+                }
             }
         });
         setTimeout(checkForUpdates, 20);

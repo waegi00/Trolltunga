@@ -160,8 +160,7 @@ namespace Trolltunga.Controllers
             {
                 return Content("");
             }
-
-            if (count > channel.Messages.Count)
+            if (count < channel.Messages.Count)
             {
                 return PartialView("_Channel", channel.Messages.ToList());
             }
