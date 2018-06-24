@@ -15,7 +15,7 @@ namespace Trolltunga.Controllers
     public class ChannelController : Controller
     {
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
-        
+
         public ActionResult Index(Guid? id)
         {
             if (id == null)
@@ -35,7 +35,7 @@ namespace Trolltunga.Controllers
                 ChannelId = channel.Id
             });
         }
-        
+
         public ActionResult Create(Guid projectId)
         {
             return View(new ChannelFormViewModel
@@ -43,7 +43,7 @@ namespace Trolltunga.Controllers
                 ProjectId = projectId
             });
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Guid? projectId, ChannelFormViewModel model)
@@ -63,7 +63,7 @@ namespace Trolltunga.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index", new { channel.Id });
         }
-        
+
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
@@ -82,7 +82,7 @@ namespace Trolltunga.Controllers
                 ProjectId = channel.ProjectId
             });
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ChannelFormViewModel model)
@@ -97,7 +97,7 @@ namespace Trolltunga.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index", new { projectId = channel.ProjectId });
         }
-        
+
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
@@ -116,7 +116,7 @@ namespace Trolltunga.Controllers
                 ProjectId = channel.ProjectId
             });
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Guid id)
@@ -153,14 +153,19 @@ namespace Trolltunga.Controllers
             return Content("");
         }
 
-        public ActionResult GetNewMessages(Guid channelId)
+        public ActionResult GetNewMessages(int count, Guid channelId)
         {
             var channel = _db.Channels.Find(channelId);
             if (channel == null)
             {
                 return Content("");
             }
-            return PartialView("_Channel", channel.Messages.ToList());
+
+            if (count > channel.Messages.Count)
+            {
+                return PartialView("_Channel", channel.Messages.ToList());
+            }
+            return Content("");
         }
 
         protected override void Dispose(bool disposing)

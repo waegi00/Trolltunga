@@ -11,7 +11,7 @@
             @Html.Partial("_Channel", Model.Messages)
             @if (Model.Messages.Count == 0)
             {
-                <div class="media">
+                <div class="media" id="bot">
                     <div class="media-left">
                         <i class="fa fa-rocket fa-3x" style="color: #337ab7;"></i>
                     </div>
@@ -64,7 +64,8 @@
     }
 
     function checkForUpdates() {
-        $.get('@Url.Action("GetNewMessages","Channel")?channelId=@Model.ChannelId', function (data) {
+        var countMessages = $("#messages-container .media").length - $("#bot").length;
+        $.get('@Url.Action("GetNewMessages","Channel")?length=' + countMessages + '&channelId=@Model.ChannelId', function (data) {
             if (data !== "") {
                 $("#messages-container").empty(data);
                 $("#messages-container").append(data);
