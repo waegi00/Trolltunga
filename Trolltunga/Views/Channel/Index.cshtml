@@ -1,27 +1,14 @@
 ﻿@using Microsoft.AspNet.Identity
-@model Trolltunga.Models.Channel
+@model Trolltunga.ViewModels.Channel.ChannelChannelViewModel
 @{
     ViewBag.Title = "Index";
 }
 
 <div class="row">
-    @Html.Partial("_DashboardMenu", Model.Project, new ViewDataDictionary { { "channelId", Model.Id } })
+    @Html.Partial("_DashboardMenu", Model.Project, new ViewDataDictionary { { "channelId", Model.ChannelId } })
     <div class="full-height col-lg-10 no-padding-row">
-        <div class="messages-container">
-            @foreach (var message in Model.Messages)
-            {
-                <div class="media">
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="media-object" src="http://via.placeholder.com/64x64">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading">@message.ApplicationUser.UserName</h4>
-                        @message.Content
-                    </div>
-                </div>
-            }
+        <div id="messages-container">
+            @Html.Partial("_Channel", Model.Messages)
             @if (Model.Messages.Count == 0)
             {
                 <div class="media">
@@ -35,29 +22,54 @@
                 </div>
             }
         </div>
-        <div class="media" id="input" style="margin-top: 0">
-            <div class="media-left">
-                <img class="media-object" src="http://via.placeholder.com/64x64">
-            </div>
-            <div class="media-body">
-                <div class="row form-inline">
-                    <input id="textInput" type="text" class="form-control input-lg"/>
-                    <button id="submitInput" type="button" class="btn btn-primary btn-lg">Send</button>
+        @using (Ajax.BeginForm("AddMessage", "Channel", new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "messages-container",
+            InsertionMode = InsertionMode.InsertAfter,
+            OnComplete = "onComplete"
+        }))
+        {
+            <div class="media" id="input" style="margin-top: 0">
+                <div class="media-left">
+                    <img class="media-object" src="http://via.placeholder.com/64x64">
+                </div>
+                <div class="media-body">
+                    <div class="row form-inline">
+                        @Html.HiddenFor(x => x.ChannelId)
+                        @Html.TextBoxFor(x => x.Content, new {@class = "form-control input-lg"})
+                        <button id="submitInput" type="submit" class="btn btn-primary btn-lg">Send</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
 </div>
 <script>
+    var lastmessageId = 0;
     $(document).ready(function () {
-        $(".messages-container").animate({ scrollTop: $('.messages-container').prop("scrollHeight") }, 1000);
-
         $(window).resize(function () {
             $(".full-height").height($(window).height() - $(".full-height").offset().top);
             var inputHeight = parseInt($("#input").css("padding")) * 2 + $("#input").height();
-            $(".messages-container").height(($(".full-height").height() - parseInt($(".messages-container").css("padding")) * 2) - inputHeight);
-            console.log();
+            $("#messages-container").height(($(".full-height").height() - parseInt($("#messages-container").css("padding")) * 2) - inputHeight);
         });
         $(window).resize();
+        $("#messages-container").animate({ scrollTop: $('#messages-container').prop("scrollHeight") }, 500);
+
+        checkForUpdates();
     });
+
+    function onComplete() {
+        $("#Content").val("");
+    }
+
+    function checkForUpdates() {
+        $.get('@Url.Action("GetNewMessages","Channel")?channelId=@Model.ChannelId', function (data) {
+            if (data !== "") {
+                $("#messages-container").empty(data);
+                $("#messages-container").append(data);
+            }
+        });
+        setTimeout(checkForUpdates, 20);
+    }
 </script>

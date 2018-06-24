@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Trolltunga.Models;
 using Trolltunga.ViewModels.Channel;
 
@@ -26,7 +27,13 @@ namespace Trolltunga.Controllers
             {
                 return HttpNotFound();
             }
-            return View(channel);
+            return View(new ChannelChannelViewModel
+            {
+                Project = channel.Project,
+                Messages = channel.Messages,
+                Name = channel.Name,
+                ChannelId = channel.Id
+            });
         }
         
         public ActionResult Create(Guid projectId)
@@ -119,6 +126,41 @@ namespace Trolltunga.Controllers
             _db.Channels.Remove(channel);
             _db.SaveChanges();
             return RedirectToAction("Index", new { projectId = channel.ProjectId });
+        }
+
+        [HttpPost]
+        public ActionResult AddMessage(ChannelChannelViewModel model)
+        {
+            var channel = _db.Channels.Find(model.ChannelId);
+            if (channel == null)
+            {
+                return null;
+            }
+            var userid = User.Identity.GetUserId();
+            var user = _db.Users.FirstOrDefault(x => x.Id == userid);
+            if (user == null)
+            {
+                return null;
+            }
+            var message = new Message
+            {
+                Content = model.Content,
+                Id = new Guid(),
+                ApplicationUser = user
+            };
+            channel.Messages.Add(message);
+            _db.SaveChanges();
+            return Content("");
+        }
+
+        public ActionResult GetNewMessages(Guid channelId)
+        {
+            var channel = _db.Channels.Find(channelId);
+            if (channel == null)
+            {
+                return Content("");
+            }
+            return PartialView("_Channel", channel.Messages.ToList());
         }
 
         protected override void Dispose(bool disposing)
